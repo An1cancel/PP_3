@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+    <style>table th, table td {
+        padding: 5px;
+    }</style>
+</head>
+<body>
+<h2>Все пользователи</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Логин</th>
+        <th>Роль</th>
+        <th>Информация</th>
+        <th>Изменить</th>
+        <th>Удалить</th>
+
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:utext="${user.getId()}">id</td>
+        <td th:utext="${user.getName()}">name</td>
+        <td th:utext="${user.getSurname}">surname</td>
+        <td th:utext="${user.getAge()}">age</td>
+        <td th:utext="${user.getUsername()}">username</td>
+        <td>
+            <span th:each="role : ${user.roleSet}" th:text="${role.roleName} + ' '">Roles</span>
+        </td>
+
+        <td>
+            <form th:method="GET" th:action="@{/admin/show?id={id}}">
+                <input type="hidden" name="id" th:value="${user.getId()}"/>
+                <input type="submit" value="Показать"/>
+            </form>
+
+        </td>
+        <td>
+            <form th:method="GET" th:action="@{/admin/edit}">
+                <input type="hidden" name="id" th:value="${user.getId()}"/>
+                <input type="submit" value="Изменить"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="POST" th:action="@{/admin/delete?id={id}(id=${user.getId()})}">
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+    </tr>
+</table>
+<p></p>
+<form th:method="GET" th:action="@{/admin/new}">
+    <input type="submit" value="Создать"/>
+</form>
+<p></p>
+<form th:method="GET" th:action="@{/logout}">
+    <input type="submit" value="Выход"/>
+</form>
+</body>
+</html>
