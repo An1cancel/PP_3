@@ -76,6 +76,12 @@ public class Role implements Serializable, GrantedAuthority {
                 ", roleName='" + roleName + '\'' +
                 '}';
     }
+    public String toStringName(){
+        if (roleName.equals("ROLE_ADMIN")){
+            return "ADMIN";
+        }else
+            return "USER";
+    }
 
     @Override
     public String getAuthority() {

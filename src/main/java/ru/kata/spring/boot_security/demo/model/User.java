@@ -7,6 +7,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -39,10 +40,11 @@ public class User implements Serializable, UserDetails {
     @Column(name = "age")
     private int age;
 
-    @NotEmpty(message = "Логин не может быть пстым")
+    @NotEmpty(message = "Логин не может быть пустым")
     @Size(min = 2, max = 30, message = "Логин может состоять от 2 до 30 символов")
-    @Column(name = "username",unique = true)
-    private String username;
+    @Email(message = "Email некорректный")
+    @Column(name = "email",unique = true)
+    private String email;
 
     @NotEmpty(message = "Пороль не может быть пустым")
     @Column(name = "password")
@@ -61,11 +63,11 @@ public class User implements Serializable, UserDetails {
 
     public User() {}
 
-    public User(String name, String surname, int age, String password, String username) {
+    public User(String name, String surname, int age, String password, String email) {
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.username = username;
+        this.email = email;
         this.password = password;
     }
 
@@ -103,11 +105,15 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail (String email) {
+        this.email = email;
     }
 
     @Override
