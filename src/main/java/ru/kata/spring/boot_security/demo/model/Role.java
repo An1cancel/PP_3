@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -20,7 +22,7 @@ public class Role implements Serializable, GrantedAuthority {
     @Column(name = "role_name", unique = true)
     private String roleName;
 
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "roleSet",fetch = FetchType.LAZY )
     private Set<User> usersSet;
 

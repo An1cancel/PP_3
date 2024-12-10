@@ -1,11 +1,13 @@
 package ru.kata.spring.boot_security.demo.model;
 
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -40,7 +42,7 @@ public class User implements Serializable, UserDetails {
     @Column(name = "age")
     private int age;
 
-    @NotEmpty(message = "Логин не может быть пустым")
+    @NotEmpty(message = "Логин не может быть пстым")
     @Size(min = 2, max = 30, message = "Логин может состоять от 2 до 30 символов")
     @Email(message = "Email некорректный")
     @Column(name = "email",unique = true)
